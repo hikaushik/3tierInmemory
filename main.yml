@@ -1,23 +1,27 @@
+- name: in memory inventory
+  hosts: workstation
+  become: yes
+  roles:
+    - inmemory
+
 - name: setup database tier
   hosts: all
   become: yes
   roles:
-    - {name: pretask, tags: base }
+    - pretask
 
 - name: setup frontends
-  hosts: frontends
+  hosts: frontend
   become: yes
   roles:
-    - { name: frontend, tags: front} 
-
+    - frontend
 - name: setup app
   hosts: apps
   become: yes
   roles:
-    - { name: AppServer, tags: app } 
-
+    - AppServer
 - name: setup DB
   hosts: appdbs
   become: yes
   roles:
-    - { name: Dbserver, tags: db } 
+    - Dbserver

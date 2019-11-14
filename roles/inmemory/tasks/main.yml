@@ -1,0 +1,24 @@
+---
+# tasks file for inmemory
+- os_server_info:
+    cloud: ospcloud
+  register: result
+#- debug:
+    #var: result.openstack_servers
+    #var: result.openstack_servers[0].metadata.group,result.openstack_servers[1].metadata.group
+  #loop: "{{ result.openstack_servers[metadata].[group] }}" 
+  #  msg: {{ item }}
+  #loop: "{{ result.openstack_server }}"
+
+#- debug:
+#    var: item.metadata.group
+#  loop: "{{ result.openstack_servers }}"
+#
+#- debug:
+#    var: item.public_v4
+#  loop: "{{ result.openstack_servers }}"
+
+- add_host:
+    name: "{{ item.public_v4 }}" 
+    groups: "{{ item.metadata.group }}"
+  loop: "{{ result.openstack_servers }}"
